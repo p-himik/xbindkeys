@@ -312,7 +312,8 @@ event_loop (Display * d)
 	      if (keys[i].type == SYM && keys[i].event_type == PRESS)
 		{
 		  if (e.xkey.keycode == XKeysymToKeycode (d, keys[i].key.sym)
-		      && e.xkey.state == keys[i].modifier)
+		      && (keys[i].modifier == AnyModifier
+		          || e.xkey.state == keys[i].modifier))
 		    {
 		      print_key (d, &keys[i]);
 		      adjust_display(&e.xany);
@@ -323,7 +324,8 @@ event_loop (Display * d)
 	      if (keys[i].type == CODE && keys[i].event_type == PRESS)
 		{
 		  if (e.xkey.keycode == keys[i].key.code
-		      && e.xkey.state == keys[i].modifier)
+		      && (keys[i].modifier == AnyModifier
+		          || e.xkey.state == keys[i].modifier))
 		    {
 		      print_key (d, &keys[i]);
 		      adjust_display(&e.xany);
@@ -348,7 +350,8 @@ event_loop (Display * d)
 	      if (keys[i].type == SYM && keys[i].event_type == RELEASE)
 		{
 		  if (e.xkey.keycode == XKeysymToKeycode (d, keys[i].key.sym)
-		      && e.xkey.state == keys[i].modifier)
+		      && (keys[i].modifier == AnyModifier
+		          || e.xkey.state == keys[i].modifier))
 		    {
 		      print_key (d, &keys[i]);
 		      adjust_display(&e.xany);
@@ -359,7 +362,8 @@ event_loop (Display * d)
 	      if (keys[i].type == CODE && keys[i].event_type == RELEASE)
 		{
 		  if (e.xkey.keycode == keys[i].key.code
-		      && e.xkey.state == keys[i].modifier)
+		      && (keys[i].modifier == AnyModifier
+		          || e.xkey.state == keys[i].modifier))
 		    {
 		      print_key (d, &keys[i]);
 		      adjust_display(&e.xany);
@@ -386,7 +390,8 @@ event_loop (Display * d)
 	      if (keys[i].type == BUTTON && keys[i].event_type == PRESS)
 		{
 		  if (e.xbutton.button == keys[i].key.button
-		      && e.xbutton.state == keys[i].modifier)
+		      && (keys[i].modifier == AnyModifier
+		          || e.xbutton.state == keys[i].modifier))
 		    {
                       //printf("Replay!!!\n");
                       //ungrab_all_keys(d);
@@ -418,7 +423,8 @@ event_loop (Display * d)
 	      if (keys[i].type == BUTTON && keys[i].event_type == RELEASE)
 		{
 		  if (e.xbutton.button == keys[i].key.button
-		      && e.xbutton.state == keys[i].modifier)
+		      && (keys[i].modifier == AnyModifier
+		          || e.xbutton.state == keys[i].modifier))
 		    {
 		      print_key (d, &keys[i]);
 		      adjust_display(&e.xany);
